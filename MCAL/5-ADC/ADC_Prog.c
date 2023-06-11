@@ -7,9 +7,8 @@
 #include "ADC_Cfg.h"
 #include "ADC_Reg.h"
 
-	static uint8 ADC_u8Index = 0;
 
-	static ChainConversionStruct_t *ADC_structChainConversion ;
+	static ADC_Chain_t *ADC_pChainData = NULL ;
 
 	static uint8 ADC_u8AsynchType  ;						// SINGLE OR CHAIN
 
@@ -52,8 +51,13 @@
 		SET_BIT ( ADCSRA , ADCSRA_ADEN ) ;
 
 	}
-	
-	uint16 ADC_u8StartConversionSynch ( ADC_Channel_t copy_Channel , uint16* copy_pu16DigitalResult )
+	/**
+	 * @brief this function is used to start single channel conversion and get back with the result
+	 * @param copy_Channel : the required analog channel to convert , choose from options @ADC_Channel_t
+	 * @param copy_pu16DigitalResult : out parameter for the digital result
+	 * @return error state
+	 */
+	uint16 ADC_u8StartSingleConversionSynch ( ADC_Channel_t copy_Channel , uint16* copy_pu16DigitalResult )
 	{
 		uint8 Local_u8ErrorState = OK ;
 		if ( copy_pu16DigitalResult != NULL )
@@ -123,7 +127,7 @@
 
 	}
 
-	uint16 ADC_u8StartConversionAsynch ( ADC_Channel_t copy_Channel , uint16* copy_pu16DigitalResult , void(*copy_pvNotification)(void) )
+	uint16 ADC_u8StartSingleConversionAsynch ( ADC_Channel_t copy_Channel , uint16* copy_pu16DigitalResult , void(*copy_pvNotification)(void) )
 
 	{
 		ADC_u8AsynchType = SINGLE ;
@@ -170,28 +174,29 @@
 		return Local_u8ErrorState ;
 	}
 
-	uint8 ADC_StartChainConversionAsynch(ChainConversionStruct_t *copy_structpConversionChainSent)
+	uint8  ADC_u8StartChainConversionAsynch 	 	 (const ADC_Chain_t *copy_ChainData)
 	{
 		uint8 Local_u8ErrorState = OK ;
-		if ((copy_structpConversionChainSent != NULL) && (copy_structpConversionChainSent ->Conversion_Channel_arr != NULL ) && (copy_structpConversionChainSent -> result_arr != NULL) && (copy_structpConversionChainSent ->NotificationFunction != NULL ))
+		if (	copy_ChainData != NULL	)
 		{
 			if (ADC_u8BusyFlag == IDLE)
 			{
-				ADC_u8AsynchType = CHAIN;
-
 														/* Set the ADC busy flag */
 				ADC_u8BusyFlag = BUSY;
 
+				ADC_u8AsynchType = CHAIN;
 														/* Save the parameters */
 
-				ADC_structChainConversion = copy_structpConversionChainSent ;
+				ADC_pChainData = copy_ChainData ;
 
-														/* Set the ADC channel */
+				ADC_u8ConversionIndex = 0u ;
+
+														/* Set the FIRST ADC channel */
 				ADMUX &= CHANNEL_SELECTION_MASK;
-				ADMUX |= ADC_structChainConversion->Conversion_Channel_arr[ADC_u8Index];
+				ADMUX |= ADC_pChainData->ChannelArr[ADC_u8ConversionIndex];
 
 
-														/* Enable ADC conversion complete interrupt */
+														/* Enable ADC conversion complete interrupt AND START CONVERSIONt */
 				SET_BIT(ADCSRA, ADCSRA_ADSC);
 				SET_BIT(ADCSRA, ADCSRA_ADIE);
 			}
@@ -248,25 +253,30 @@
 			#if 			ADC_u8RESOLUTION == EIGHT_BITS
 
 							// IN 8-BIT RESOLUTION ( ADC READONG == ADCH )
-					ADC_structChainConversion -> result_arr[ADC_u8Index] = ADCH
+					ADC_pChainData -> ResultArr[ADC_u8ConversionIndex] = (uint16)ADCH ;
 
 
 			#elif 			ADC_u8RESOLUTION == TEN_BITS
-					ADC_structChainConversion -> result_arr[ADC_u8Index] = ADC ;
+					ADC_pChainData -> ResultArr[ADC_u8ConversionIndex] = ADC ;
 
 			#endif
 
-					ADC_u8Index ++ ;
+					ADC_u8ConversionIndex ++ ;
 
 								/* If all samples have been taken, disable the ADC and call the callback function */
-			if (ADC_u8Index >= ADC_structChainConversion->Conversion_Number)
+			if (ADC_u8ConversionIndex == ADC_pChainData->ConversionsNum)
 			{
-				CLR_BIT(ADCSRA, ADCSRA_ADIE);
-				ADC_u8ConversionIndex = 0;
-			    ADC_u8BusyFlag = IDLE;
-				if(ADC_structChainConversion->NotificationFunction != NULL)
+				ADC_u8BusyFlag = IDLE;
+
+				CLR_BIT(ADCSRA, ADCSRA_ADIE);   				// DISABLE INTERRUPT
+
+				if(ADC_pChainData->NotificationFunc != NULL)
 				{
-					ADC_structChainConversion->NotificationFunction() ;
+					ADC_pChainData->NotificationFunc() ;
+				}
+				else
+				{
+					// DO NOTHING
 				}
 
 			}
@@ -276,12 +286,11 @@
 								/* Set the ADC channel */
 
 				ADMUX &= CHANNEL_SELECTION_MASK;
-				ADMUX |= ADC_structChainConversion->Conversion_Channel_arr[ADC_u8Index];
+				ADMUX |= ADC_pChainData->ChannelArr[ADC_u8ConversionIndex];
 
 
-								/* Start next conversion and Enable ADC conversion complete interrupt */
+								/* Start next conversion */
 				SET_BIT(ADCSRA, ADCSRA_ADSC);
-				SET_BIT(ADCSRA, ADCSRA_ADIE);
 			}
 		}
 

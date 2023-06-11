@@ -23,8 +23,8 @@
 
 									/*ASYNCHRONOUS TYPES */
 
-	#define		SINGLE					1U
-	#define		CHAIN					2U
+	#define		SINGLE					0U
+	#define		CHAIN					1U
 
 
 
