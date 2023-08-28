@@ -1,6 +1,8 @@
 #ifndef ADC_CFG_H
 #define ADC_CFG_H
-
+	/**
+	 * @brief This file contains pre-build Configurations that should be set before running the Application  .
+	 */
 									/* CONFIGURE ADC PRESCALER DIVISION FACTOR : 1- DIVISION_BY_2
 									 * 											 2- DIVISION_BY_4
 									 *											 3- DIVISION_BY_8

@@ -1,6 +1,8 @@
 #ifndef ADC_PRV_H
 #define ADC_PRV_H
-
+	/**
+	 * @brief This file contains private decelerations of macros which are used in Configuration and program files .
+	 */
 									/*ADC PRIVATE FUNCTIONS & DEFINITIONS */
 	#define 	ChannelMaxValue 		31u
 

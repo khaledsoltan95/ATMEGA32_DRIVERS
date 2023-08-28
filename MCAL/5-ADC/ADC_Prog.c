@@ -20,7 +20,11 @@
 
 	static uint8 ADC_u8BusyFlag = IDLE ;
 
-
+	/**
+	 * @brief this function is used to initialize ADC and prepare it for conversions starting .
+	 * @param void
+	 * @return void
+	 */
 	void ADC_voidInit  			   ( void )
 	{
 											/* 1- REFERENCE SELECTION : AVCC with external capacitor at AREF pin */
@@ -52,7 +56,7 @@
 
 	}
 	/**
-	 * @brief this function is used to start single channel conversion and get back with the result
+	 * @brief this function is used to start single channel Synch. conversion and get back with the result
 	 * @param copy_Channel : the required analog channel to convert , choose from options @ADC_Channel_t
 	 * @param copy_pu16DigitalResult : out parameter for the digital result
 	 * @return error state
@@ -127,6 +131,13 @@
 
 	}
 
+	/**
+	 * @brief this function is used to start single channel Asynch. conversion and get back with the result
+	 * @param copy_Channel : the required analog channel to convert , choose from options @ADC_Channel_t
+	 * @param copy_pu16DigitalResult : out parameter for the digital result
+	 * @param void(*copy_pvNotification)(void) : out parameter for the ISR function
+	 * @return error state
+	 */
 	uint16 ADC_u8StartSingleConversionAsynch ( ADC_Channel_t copy_Channel , uint16* copy_pu16DigitalResult , void(*copy_pvNotification)(void) )
 
 	{
@@ -173,7 +184,11 @@
 
 		return Local_u8ErrorState ;
 	}
-
+	/**
+	 * @brief this function is used to start Chain channel Asynch. conversions and get back with the result
+	 * @param copy_Channel : the required struct pointer @ADC_Chain_t
+	 * @return error state
+	 */
 	uint8  ADC_u8StartChainConversionAsynch 	 	 (const ADC_Chain_t *copy_ChainData)
 	{
 		uint8 Local_u8ErrorState = OK ;
@@ -211,7 +226,11 @@
 		}
 		return Local_u8ErrorState ;
 	}
-
+	/**
+	 * @brief this function is used for interrupt response when it comes
+	 * @param void
+	 * @return void
+	 */
 												/* ADC CONVERSION COMPLETE ISR */
 
 	void __vector_16 ( void )			__attribute__((signal)) ;

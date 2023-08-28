@@ -1,0 +1,21 @@
+#ifndef LDR_CFG_H
+#define LDR_CFG_H
+
+					/* LDR CONFIGURATIONS */
+
+		/* ADC CHANNELS OPTIONS : 	1- ADC0_SINGLE_ENDED
+								  	2- ADC1_SINGLE_ENDED
+									3- ADC2_SINGLE_ENDED
+									4- ADC3_SINGLE_ENDED
+									5- ADC4_SINGLE_ENDED
+									6- ADC5_SINGLE_ENDED
+									7- ADC6_SINGLE_ENDED
+									8- ADC7_SINGLE_ENDED
+									9- ADC0_POS_ADC0_NEG_10X_GAIN
+									1- ADC1_POS_ADC0_NEG_10X_GAIN
+		*/
+
+
+			#define 	LDR_ADC_CHANNEL			ADC7_SINGLE_ENDED
+
+#endif

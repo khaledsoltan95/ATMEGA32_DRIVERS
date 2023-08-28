@@ -28,7 +28,9 @@
 	    void    (*NotificationFunc)(void);
 
 	} ADC_Chain_t;
-
+	/**
+	 * @brief this file contains functions decelerations which used in program file for ADC initialization and conversion options .
+	 */
 	void   ADC_voidInit  		      ( void ) ;
 
 	uint16 ADC_u8StartSingleConversionSynch     	 ( ADC_Channel_t copy_Channel , uint16* copy_pu16DigitalResult ) ;
