@@ -5,17 +5,17 @@
 					/* SPI ROLE CONFIGURATION OPTIONS   	1- MASTER
 					 * 										2- SLAVE
 					 */
-	#define 	SPI_u8ROLE 							SLAVE
+	#define 	SPI_u8ROLE 							MASTER
 
 	#if 					SPI_u8ROLE == MASTER
 
-					/* SPI ROLE CONFIGURATION OPTIONS   	1- DIVIDED_BY_4
-					 * 										2- DIVIDED_BY_16
-					 * 										3- DIVIDED_BY_64
-					 * 										4- DIVIDED_BY_128
-					 * 										5- DIVIDED_BY_2
-					 * 										6- DIVIDED_BY_8
-					 * 										7- DIVIDED_BY_32
+					/* SPI ROLE CONFIGURATION OPTIONS   				1- DIVIDED_BY_4
+					 * 													2- DIVIDED_BY_16
+					 * 													3- DIVIDED_BY_64
+					 * 													4- DIVIDED_BY_128
+					 * 													5- DIVIDED_BY_2
+					 * 													6- DIVIDED_BY_8
+					 * 													7- DIVIDED_BY_32
 					 */
 		#define 				SPI_u8ClockRate 						DIVIDED_BY_2
 
@@ -45,5 +45,10 @@
 					 * 													2- SETUP_FIRST
 					 */
 	#define 	SPI_u8ClockPhase					SAMPLE_FIRST
+
+					/* SPI ENABLE CONFIGURATION OPTIONS   				1- ENABLE
+					 * 													2- DISABLE
+					 */
+	#define 	SPI_u8Enable 						ENABLE
 
 #endif 

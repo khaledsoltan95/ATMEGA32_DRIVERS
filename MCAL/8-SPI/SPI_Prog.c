@@ -70,7 +70,7 @@ static void (*SPI_pvNotificationFunc)(void) = NULL ;
 
 		#else
 
-			#error Wrong SPI_u8ROLE Configuration Value
+		#error Wrong SPI_u8ROLE Configuration Value
 
 		#endif
 
@@ -84,7 +84,7 @@ static void (*SPI_pvNotificationFunc)(void) = NULL ;
 
 		#else
 
-			#error Wrong SPI_u8InterruptEnable Configuration Value
+		#error Wrong SPI_u8InterruptEnable Configuration Value
 
 		#endif
 
@@ -98,7 +98,7 @@ static void (*SPI_pvNotificationFunc)(void) = NULL ;
 
 		#else
 
-			#error Wrong SPI_u8DataOrder Configuration Value
+		#error Wrong SPI_u8DataOrder Configuration Value
 
 		#endif
 
@@ -112,7 +112,7 @@ static void (*SPI_pvNotificationFunc)(void) = NULL ;
 
 		#else
 
-			#error Wrong SPI_u8ClockPolarity Configuration Value
+		#error Wrong SPI_u8ClockPolarity Configuration Value
 
 		#endif
 
@@ -126,13 +126,18 @@ static void (*SPI_pvNotificationFunc)(void) = NULL ;
 
 		#else
 
-			#error Wrong SPI_u8ClockPhase Configuration Value
+		#error Wrong SPI_u8ClockPhase Configuration Value
 
 		#endif
 
 											/* SPI ENABLE */
-
+		#if 	SPI_u8Enable == ENABLE
 		SET_BIT(SPCR,SPCR_SPE) ;
+		#elif 	SPI_u8Enable == DISABLE
+		CLR_BIT(SPCR,SPCR_SPE) ;
+		#else
+		#error "Wrong SPI_u8Enable Configuration Value"
+		#endif
 
 
 	}
@@ -142,13 +147,13 @@ static void (*SPI_pvNotificationFunc)(void) = NULL ;
 
 												/* DATA ORDER */
 
-		CLR_BIT(SPCR,SPCR_DORD) ;     // the MSB of the data word is transmitted first.
+		CLR_BIT(SPCR,SPCR_DORD) ;     			// the MSB of the data word is transmitted first.
 
 												/* MASTER / SLAVE SELECT */
 
 		if ( ( copy_u8Role == 'M' ) || ( copy_u8Role == 'm' ) )
 		{
-			SET_BIT(SPCR,SPCR_MSTR) ;   	// MASTER SELECTION
+			SET_BIT(SPCR,SPCR_MSTR) ;   		// MASTER SELECTION
 
 												/* CLOCK RATE SELECT */
 

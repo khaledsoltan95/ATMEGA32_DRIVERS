@@ -5,7 +5,7 @@
 
 	void SPI_voidInitial 		( void ) ;
 
-	void SPI_voidInit			( uint8 copy_u8Role ) ;
+	void SPI_voidInit			( uint8 copy_u8Role ) ;			/* TO CHANGE ROLE DURING RUN TIME */
 
 	uint8 SPI_u8Transceive 		( uint8 copy_u8Data);
 
