@@ -1,49 +1,52 @@
 #ifndef I2C_CFG_H
 #define I2C_CFG_H
-											/* I2C CONFIGURATIONS */
+											/* I2C(TWI) CONFIGURATIONS */
 
-					/* SPI ROLE CONFIGURATION OPTIONS   	1- MASTER
+					/* TWI ROLE CONFIGURATION OPTIONS   	1- MASTER
 					 * 										2- SLAVE
 					 */
-	#define 	SPI_u8ROLE 							SLAVE
+	#define 	TWI_u8ROLE 							MASTER
 
-	#if 					SPI_u8ROLE == MASTER
+	#if 					TWI_u8ROLE == MASTER
 
-					/* SPI ROLE CONFIGURATION OPTIONS   	1- DIVIDED_BY_4
-					 * 										2- DIVIDED_BY_16
-					 * 										3- DIVIDED_BY_64
-					 * 										4- DIVIDED_BY_128
-					 * 										5- DIVIDED_BY_2
-					 * 										6- DIVIDED_BY_8
-					 * 										7- DIVIDED_BY_32
+					/* TWI ROLE CONFIGURATION OPTIONS   	1- DIVIDED_BY_1
+					 * 										2- DIVIDED_BY_4
+					 * 										3- DIVIDED_BY_16
+					 * 										4- DIVIDED_BY_64
 					 */
-		#define 				SPI_u8ClockRate 						DIVIDED_BY_2
+		#define 	TWI_u8ClockRate 					DIVIDED_BY_1
 
-	#elif 					SPI_u8ROLE == SLAVE
+					/* TWI CLOCK FREQUENCY CONFIGURATION SET "SET NUMBER WITHOUT MILLION ex. 16 for 16MHZ CLOCK*/
+		#define 	TWI_u8ClockFrequency 				16u
+
+					/* TWI SCL FREQUENCY CONFIGURATION SET ex. 400 for 400 kbps "MAXIMUM VALUE CAN TWI SUPPORT" "CLOCK FREQUENCY MUST BE > (16 * SCL FREQUENCY) */
+		#define 	TWI_u16SCLFrequency					400u
+
+	#elif 					TWI_u8ROLE == SLAVE
 
 	#else
-			#error Wrong SPI_u8ROLE Configuration Value
+			#error Wrong TWI_u8ROLE Configuration Value
 
 	#endif
 
-					/* SPI INTERRUPT ENABLE CONFIGURATION OPTIONS   	1- ENABLE
+					/* TWI INTERRUPT ENABLE CONFIGURATION OPTIONS   	1- ENABLE
 					 * 													2- DISABLE
 					 */
-	#define 	SPI_u8InterruptEnable 				DISABLE
+	#define 	TWI_u8InterruptEnable 				ENABLE
 
-					/* SPI DATA ORDER CONFIGURATION OPTIONS   			1- LSB_FIRST
-					 * 													2- MSB_FIRST
+					/* TWI ACKNOWLEDGE BIT OPTIONS				   		1- ENABLE
+					 * 													2- DISABLE
 					 */
-	#define 	SPI_u8DataOrder 					MSB_FIRST
+	#define 	TWI_u8AcknowledgeBit				ENABLE
 
-					/* SPI CLOCK POLARITY CONFIGURATION OPTIONS   		1- IDLE_HIGH
-					 * 													2- IDLE_LOW
+					/* TWI ENABLE CONFIGURATION OPTIONS   				1- ENABLE
+					 * 													2- DISABLE
 					 */
-	#define 	SPI_u8ClockPolarity					IDLE_LOW
+	#define 	TWI_u8Enable 						ENABLE
 
-					/* SPI CLOCK PHASE CONFIGURATION OPTIONS	   		1- SAMPLE_FIRST
-					 * 													2- SETUP_FIRST
+					/* TWI GENERAL CALL RECOGNITION OPTIONS   			1- ENABLE
+					 * 													2- DISABLE
 					 */
-	#define 	SPI_u8ClockPhase					SAMPLE_FIRST
+	#define 	TWI_u8GeneralCallRecognition 		ENABLE
 
 #endif 

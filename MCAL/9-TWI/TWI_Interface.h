@@ -1,6 +1,8 @@
 #ifndef TWI_INTERFACE_H
 #define TWI_INTERFACE_H
 
+#include "TWI_Reg.h"
+
 	typedef enum
 	{
 		NoError ,
@@ -15,9 +17,9 @@
 	
 											/* Functions Deceleration */
 
-	uint8				TWI_voidMasterInit 						( uint8 copy_u8MasterAddress ) ;	/* IF MASTER IS NOT ADDRESSED IN THE NETWORK , PASS ADDRESS 0 */
+	uint8				TWI_u8MasterInit 						( uint8 copy_u8MasterAddress ) ;	/* IF MASTER IS NOT ADDRESSED IN THE NETWORK , PASS ADDRESS 0u */
 
-	uint8 				TWI_voidSlaveInit						( uint8 copy_u8SlaveAddress ) ;
+	uint8 				TWI_u8SlaveInit							( uint8 copy_u8SlaveAddress ) ;
 
 	TWI_Errorstatus_t 	TWI_voidSendStartCondition				( void ) ;
 
@@ -34,6 +36,8 @@
 	void 				TWI_voidSendStopCondition				( void ) ;
 
 	uint8 				TWI_u8SetCallBack						( void(*copy_pvNotification)(void) ) ;
+
+	uint8 				TWI_u8TWBRInitValue 					(void) ;
 
 
 #endif
