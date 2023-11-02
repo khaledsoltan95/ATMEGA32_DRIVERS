@@ -55,23 +55,45 @@
 		#define 	ICR1L               	*((volatile uint8*)0x46)		/*Input Capture Register 1*/
 		#define 	ICR1	               	*((volatile uint16*)0x46)		/*Input Capture Register 1*/
 
+											/* TIMER 2 REGISTERS */
+
+		#define 	TCCR2                	*((volatile uint8*)0x45)	  	/*TIMER/COUNTER CONTROL REGISTER*/
+		#define 	TCCR2_FOC2			 	7u                           	/*FORCE OUTPUT COMPARE*/
+		#define 	TCCR2_WGM20			 	6u                           	/*WAVEFORM GENERATION MODE*/
+		#define 	TCCR2_COM21			 	5u                           	/*COMPARE MATCH OUTPUT MODE*/
+		#define 	TCCR2_COM20			 	4u                           	/*COMPARE MATCH OUTPUT MODE*/
+		#define 	TCCR2_WGM21			 	3u                           	/*WAVEFORM GENERATION MODE*/
+		#define 	TCCR2_CS22			 	2u                           	/*CLOCK SELECT*/
+		#define 	TCCR2_CS21				1u                           	/*CLOCK SELECT*/
+		#define 	TCCR2_CS20			 	0u                           	/*CLOCK SELECT*/
+
+		#define 	TCNT2               	*((volatile uint8*)0x44)		/*TIMER/COUNTER REGISTER*/
+
+		#define 	OCR2                	*((volatile uint8*)0x43)		/*OUTPUT COMPARE REGISTER*/
+
 											/* COMMON REGISTERS */
 
 		#define 	TIMSK               	*((volatile uint8*)0x59)		/*TIMER/COUNTER INTERRUPT MASK REGISTER*/
-		#define 	TIMSK_TICIE1			5u                           	/*Timer/Counter1, Input Capture Interrupt Enable*/
-		#define 	TIMSK_OCIE1A			4u                           	/*Timer/Counter1, Output Compare A Match Interrupt Enable*/
-		#define 	TIMSK_OCIE1B			3u                           	/*Timer/Counter1, Output Compare B Match Interrupt Enable*/
-		#define 	TIMSK_TOIE1			 	2u                           	/*Timer/Counter1, Overflow Interrupt Enable*/
+		#define 	TIMSK_OCIE2				7u                           	/*TIMER/COUNTER 2 OUTPUT COMPARE MATCH INTERRUPT ENABLE*/
+		#define 	TIMSK_TOIE2				6u                           	/*TIMER/COUNTER 2 OVERFLOW INTERRUPT ENABLE*/
+		#define 	TIMSK_TICIE1			5u                           	/*Timer/Counter 1 Input Capture Interrupt Enable*/
+		#define 	TIMSK_OCIE1A			4u                           	/*Timer/Counter 1 Output Compare A Match Interrupt Enable*/
+		#define 	TIMSK_OCIE1B			3u                           	/*Timer/Counter 1 Output Compare B Match Interrupt Enable*/
+		#define 	TIMSK_TOIE1			 	2u                           	/*Timer/Counter 1 Overflow Interrupt Enable*/
 		#define 	TIMSK_OCIE0				1u                           	/*TIMER/COUNTER 0 OUTPUT COMPARE MATCH INTERRUPT ENABLE*/
 		#define 	TIMSK_TOIE0				0u                           	/*TIMER/COUNTER 0 OVERFLOW INTERRUPT ENABLE*/
 
 		#define 	TIFR                	*((volatile uint8*)0x58)		/*TIMER/COUNTER INTERRUPT FLAG REGISTER*/
-		#define 	TIFR_ICF1			 	5u                           	/*Timer/Counter1, Input Capture Flag*/
-		#define 	TIFR_OCF1A			 	4u                           	/*Timer/Counter1, Output Compare A Match Flag*/
-		#define 	TIFR_OCF1B			 	3u                           	/*Timer/Counter1, Output Compare B Match Flag*/
-		#define 	TIFR_TOV1			 	2u                           	/*Timer/Counter1, Overflow Flag*/
-		#define 	TIFR_OCF0				1u                           	/*OUTPUT COMPARE FLAG0*/
-		#define 	TIFR_TOV0			 	0u                           	/*TIMER/COUNTER0 OVERFLOW FLAG*/
+		#define 	TIFR_OCF2			 	7u                           	/*TIMER/COUNTER 2 OUTPUT COMPARE FLAG 2*/
+		#define 	TIFR_TOV2			 	6u                           	/*TIMER/COUNTER 2 OVERFLOW FLAG*/
+		#define 	TIFR_ICF1			 	5u                           	/*Timer/Counter 1 Input Capture Flag*/
+		#define 	TIFR_OCF1A			 	4u                           	/*Timer/Counter 1 Output Compare A Match Flag*/
+		#define 	TIFR_OCF1B			 	3u                           	/*Timer/Counter 1 Output Compare B Match Flag*/
+		#define 	TIFR_TOV1			 	2u                           	/*Timer/Counter 1 Overflow Flag*/
+		#define 	TIFR_OCF0				1u                           	/*Timer/Counter 0 OUTPUT COMPARE FLAG 0*/
+		#define 	TIFR_TOV0			 	0u                           	/*TIMER/COUNTER 0 OVERFLOW FLAG*/
+
+		#define 	SFIOR               	*((volatile uint8*)0x50)		/*SPECIAL FUNCTION I/O REGISTER*/
 
 
 #endif

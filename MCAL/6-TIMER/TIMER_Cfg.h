@@ -162,4 +162,69 @@
 									 */
 	#define 		 TIMER1_u8CLOCK				DIVISION_BY_8
 
+							/////////////////////////////////////////////* TIMER 2 CONFIGURATIONS */////////////////////////////////////////////////////////
+
+									/* CONFIGURE TIMER 2 MODES SELECT  : 	1- NORMAL_MODE
+									 * 								     	2- PWM_PHASE_CORRECT_MODE
+									 *								     	3- CTC_MODE
+									 * 								    	4- FAST_PWM_MODE
+									 */
+
+	#define 		TIMER2_u8MODE				FAST_PWM_MODE
+
+	#if 			TIMER2_u8MODE == CTC_MODE
+
+			#define			 TIMER2_u8CompareValue		250U
+
+									/* CONFIGURE CTC OPTIONS :        		1- OC2_DISCONNECTED
+									 * 						  				2- OC2_TOGGLE
+									 *						    			3- OC2_CLEAR
+									 * 						    			4- OC2_SET
+									 */
+			#define 		CTC2_MODE_OPTION 			OC2_DISCONNECTED
+
+	#elif 			TIMER2_u8MODE == FAST_PWM_MODE
+									/* CONFIGURE FAST PWM OPTIONS :  		1- OC2_DISCONNECTED
+									 * 						    	 		2- RESERVED
+									 *						    	 		3- OC2_CLEAR_ON_COMPARE_SET_AT_TOP
+									 * 						     	 		4- OC2_SET_ON_COMPARE_CLEAR_AT_TOP
+									 */
+			#define 		FAST_PWM2_MODE_OPTION 					OC2_CLEAR_ON_COMPARE_SET_AT_TOP
+									/* COMPARE_VALUE_GENERATION_METHOD OPTIONS :  1- OUTSOURCE
+									 * 						    	 			  2- INITIALLY_SET
+									 */
+			#define			COMPARE_VALUE2_GENERATION_METHOD			INITIALLY_SET
+
+					#if 			COMPARE_VALUE2_GENERATION_METHOD == INITIALLY_SET
+
+					#define			 TIMER2_u8CompareValue		64U
+
+					#endif
+
+	#elif 			TIMER2_u8MODE == PWM_PHASE_CORRECT_MODE
+									/* CONFIGURE PWM PHASE CORRECT MODE_OPTION :  1- OC2_DISCONNECTED
+									 * 						    	 			  2- RESERVED
+									 *						    	 			  3- OC2_CLEAR_ON_COMPARE_UP_COUNTING_SET_ON_COMPARE_DOWN_COUNTING
+									 * 						     	 			  4- OC2_SET_ON_COMPARE_UP_COUNTING_CLEAR_ON_COMPARE_DOWN_COUNTING
+									 */
+			#define 		PWM_PHASE_CORRECT2_MODE_OPTION 			OC2_DISCONNECTED
+
+	#elif 			TIMER2_u8MODE == NORMAL_MODE
+
+			#define			 TIMER2_u8PreloadValue		0U
+
+
+	#endif
+
+									/* CONFIGURE TIMER CLOCK SELECT	:	1- NO_CLOCK_SOURCE
+									 * 									2- NO_PRESCALING
+									 *								    3- DIVISION_BY_8
+									 * 									4- DIVISION_BY_64
+									 * 									5- DIVISION_BY_256
+									 *									6- DIVISION_BY_1024
+									 * 									7- CLOCK_ON_FALLING_EDGE
+									 * 									8- CLOCK_ON_RISING_EDGE
+									 */
+	#define 		 TIMER2_u8CLOCK				DIVISION_BY_64
+
 #endif 
